@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite --port 4000",
+        "build": "vite build",
+        "larastan": "./vendor/bin/phpstan analyze",
+        "pint": "./vendor/bin/pint",
+        "prettier": "prettier --check '**/**/*.{js,jsx,ts,tsx,css,vue}'",
+        "prettier:fix": "prettier --write '**/**/*.{js,jsx,ts,tsx,css}'",
+        "runall" : "npm run pint & npm run larastan & npm run prettier:fix & npm run lint:fix",
+        "lint": "eslint resources/js",
+        "lint:fix": "eslint --fix resources/js"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.9.0",
+        "autoprefixer": "^10.4.20",
+        "axios": "^1.6.4",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "eslint-plugin-vue": "^9.27.0",
+        "globals": "^15.9.0",
+        "laravel-vite-plugin": "^1.0",
+        "postcss": "^8.4.41",
+        "prettier": "^3.3.3",
+        "tailwindcss": "^2.0.4",
+        "typescript-eslint": "^7.3.1",
+        "vite": "^5.0"
+    },
+    "dependencies": {
+        "@vitejs/plugin-vue": "^5.1.2",
+        "vue": "^3.4.38",
+        "vue-loader": "^17.3.1",
+        "vue-router": "^4.4.3"
+    }
+}
