@@ -26,14 +26,25 @@
 
 ## To run Application
 
-Create a valid .env file and then:
-
-Run the migrations to create the database and create dummy data:
+Developed with
 ```
+PHP 8.2.22 (cli) (built: Aug  2 2024 15:36:02) (NTS)
+node -v
+v20.13.1
+npm -v
+10.8.2
+```
+
+Clone the repo
+
+Create a valid .env file with mySQL credentials and then:
+
+
+```
+composer update
+npm update
 php artisan migrate:fresh --seed
-
 npm run dev
-
 php artisan serve
 ```
 

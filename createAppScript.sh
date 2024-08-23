@@ -1,3 +1,5 @@
+#!/bin/sh
+# This is not complete would have to test this out butis mostly correct from scratch for dependancies
 php artisan create-project taskapp
 cd taskapp
 composer require fakerphp/faker
