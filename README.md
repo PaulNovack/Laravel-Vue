@@ -7,6 +7,7 @@
 - Includes configured prettier and eslint for javascript
 - Includes pint and larastan set up on backend
 - Has one page that allows creation of projects and tasks with drag and drop implemented.
+- Uses Vue Router for home, projects and about pages.
 
 
 ## Scripts set up in package.json
