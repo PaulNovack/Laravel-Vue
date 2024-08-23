@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -23,9 +21,7 @@ class ProjectController extends Controller
 
     public function store(StoreProjectRequest $request): JsonResponse
     {
-        // The validated data is automatically available via the $request->validated() method
         $validated = $request->validated();
-
         $project = Project::create([
             'name' => $validated['name'],
         ]);

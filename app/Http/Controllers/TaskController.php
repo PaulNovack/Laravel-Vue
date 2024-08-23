@@ -64,7 +64,6 @@ class TaskController extends Controller
 
     public function order(OrderTasksRequest $request): JsonResponse
     {
-        // The validated data is automatically available via the $request->validated() method
         $validated = $request->validated();
 
         $priority = 1;

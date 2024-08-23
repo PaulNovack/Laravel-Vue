@@ -8,8 +8,6 @@ class OrderTasksRequest extends FormRequest
 {
     public function authorize()
     {
-        // Set to true if all users are allowed to reorder tasks,
-        // or implement your logic to determine if the user is authorized
         return true;
     }
 
