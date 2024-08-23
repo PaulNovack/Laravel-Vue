@@ -4,7 +4,7 @@
 
 
 - Uses npm for javascript package management
-- Includes configured prettier and eslint for javascrip
+- Includes configured prettier and eslint for javascript
 - Includes pint and larastan set up on backend
 
 
