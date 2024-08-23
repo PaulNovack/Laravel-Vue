@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,20 +21,13 @@ class ProjectController extends Controller
         }
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreProjectRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-        ]);
+        // The validated data is automatically available via the $request->validated() method
+        $validated = $request->validated();
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors(),
-            ], 400);
-        }
         $project = Project::create([
-            'name' => $request->input('name'),
+            'name' => $validated['name'],
         ]);
 
         return response()->json([
