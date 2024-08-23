@@ -28,4 +28,5 @@
 Create a valid .env file and then:
 
 npm run dev
+
 php artisan serve
