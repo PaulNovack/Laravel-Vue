@@ -27,7 +27,7 @@
 
 ## To run Application
 
-Developed with
+Developed with must be running similar to:
 ```
 PHP 8.2.22 (cli) (built: Aug  2 2024 15:36:02) (NTS)
 node -v
