@@ -13,7 +13,7 @@ export default {
                 <!-- Menu Links -->
                 <div class="flex space-x-6">
                     <a href="/" class="text-gray-600 hover:text-blue-500 transition">Home</a>
-                    <a href="/project" class="text-gray-600 hover:text-blue-500 transition">Projects</a>
+                    <a href="/project-tasks" class="text-gray-600 hover:text-blue-500 transition">Projects</a>
                     <a href="/about" class="text-gray-600 hover:text-blue-500 transition">About</a>
                 </div>
             </div>

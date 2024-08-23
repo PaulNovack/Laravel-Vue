@@ -11,11 +11,16 @@ npx tailwindcss init -p
 composer require laravel/pint --dev
 composer require nunomaduro/larastan --dev
 
-If there are issues running php artisan test as I had remove node_modules and re-install
+
 rm -rf node_modules
 npm install
 npm run build
 
-php artisan test
-
 npm install --save-dev eslint prettier eslint-plugin-vue eslint-plugin-prettier eslint-config-prettier
+
+
+npm i --save @fortawesome/fontawesome-svg-core
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+npm i --save @fortawesome/vue-fontawesome@latest-3

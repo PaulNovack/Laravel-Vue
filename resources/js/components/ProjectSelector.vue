@@ -3,9 +3,11 @@ import axios from 'axios';
 import TaskList from "./TaskList.vue";
 import {Task }from '../types/Task.ts'
 import {Project} from '../types/Project.ts'
+import AddString from "./AddString.vue";
 const host = import.meta.env.VITE_PUSHER_HOST;
 export default {
     components: {
+        AddString,
         TaskList
     },
     data() {
@@ -21,10 +23,59 @@ export default {
     },
     methods:
         {
+            handleAddProject(projectName: string) {
+                const projectData = {
+                    name: projectName
+                };
+                axios.post('http://127.0.0.1:8000/project', projectData)
+                    .catch(error => {
+                        console.log("Error: " + error)
+                    });
+                this.getProjectList();
+            },
+            handleAddTask(taskname: string) {
+                console.log('New Task in Project Vue:', taskname);
+                const taskData = {
+                    name: taskname,
+                    project_id: this.selectedProjectId
+                };
+                axios.post(`http://127.0.0.1:8000/task`, taskData)
+                    .then(response => {
+                        console.log('Task created or updated successfully:', response.data);
+                    })
+                    .catch(error => {
+                        alert('Failed To Add Task with error ' + error)
+                    });
+                this.getTasktList()
+            },
+            deleteProjectById(){
+                axios.delete('http://127.0.0.1:8000' + `/project/${this.selectedProjectId}`)
+                    .then(() => {
+                        this.ProjectList = this.ProjectList.filter(task => task.id !== this.selectedProjectId);
+                    })
+                    .catch(() => {
+                        alert('Failed To delete Task!')
+                    })
+            },
+            deleteTaskById(taskid){
+                axios.delete('http://127.0.0.1:8000' + `/task/${taskid}`)
+                    .then(() => {
+                        this.TaskList = this.TaskList.filter(task => task.id !== taskid);
+                    })
+                    .catch(() => {
+                        alert('Failed To delete Task!')
+                    })
+            },
+            orderTaskList(tasks){
+                console.log(tasks)
+                axios.post('http://127.0.0.1:8000' + `/task/order`,{ tasks: tasks })
+                    .catch(() => {
+                        alert('Failed To Order Task!')
+                    })
+            },
             async getProjectList(){
-                axios.get(host + "/projects").then((res) =>
+                axios.get(host + "/project").then((res) =>
                 {
-                    console.log(res)
                     this.ProjectList = res.data.projects as Project[]
                 }).catch((err)=>{
                     console.log(err)
@@ -32,9 +83,8 @@ export default {
 
             },
             async getTasktList(){
-                axios.get(host + `/tasks/${this.selectedProjectId}`).then((res) =>
+                axios.get(host + `/task/${this.selectedProjectId}`).then((res) =>
                 {
-                    console.log(res)
                     this.TaskList = res.data.tasks as Task[]
                 }).catch((err)=>{
                     console.log(err)
@@ -49,20 +99,30 @@ export default {
 </script>
 <template>
     <div class="flex w-full">
+        <div class="flex">
         <label for="project-select" class="mr-2 ">Projects:</label>
         <select id="project-select" name="projects" @change="handleProjectSelect" v-model="selectedProjectId" v-if="ProjectList.length"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500
-                focus:border-blue-500 block p-0.5 dark:bg-gray-700 dark:border-gray-600
-                dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                class="bg-gray-50 border-1 border-gray-300 text-gray-900 text-xs
+                   rounded-lg focus:ring-blue-500 focus:border-blue-500
+                   block p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option  v-for="project in ProjectList as Project[]"
                  :key="project.id"
                  :id="project.id"
                  :value="project.id"
                  :title="project.name">{{ project.name }}</option>
     </select>
+            <img @click="deleteProjectById()" :src="`/svg/garbage.svg`" alt="Garbage Icon" class="max-h-5 pl-2 pt-1">
+        </div>
+        </div>
+    <div class="flex w-full">
+        <AddString @add="handleAddProject" :for="`Project`"/>
     </div>
     <div class="flex mt-2 mr-2 space-x-2 w-full">
         <label for="task-list" class="mr-2">Tasks:</label>
-        <TaskList :TaskList="TaskList as Task[]"></TaskList>
+        <TaskList :TaskList="TaskList as Task[]"
+                  @addTask="handleAddTask"
+                  @deleteTaskById="deleteTaskById"
+                  @orderTaskList="orderTaskList"></TaskList>
     </div>
 </template>
