@@ -29,20 +29,16 @@ export default {
                 };
                 axios.post('http://127.0.0.1:8000/project', projectData)
                     .catch(error => {
-                        console.log("Error: " + error)
+                        alert("Error: " + error)
                     });
                 this.getProjectList();
             },
             handleAddTask(taskname: string) {
-                console.log('New Task in Project Vue:', taskname);
                 const taskData = {
                     name: taskname,
                     project_id: this.selectedProjectId
                 };
                 axios.post(`http://127.0.0.1:8000/task`, taskData)
-                    .then(response => {
-                        console.log('Task created or updated successfully:', response.data);
-                    })
                     .catch(error => {
                         alert('Failed To Add Task with error ' + error)
                     });
@@ -67,7 +63,6 @@ export default {
                     })
             },
             orderTaskList(tasks){
-                console.log(tasks)
                 axios.post('http://127.0.0.1:8000' + `/task/order`,{ tasks: tasks })
                     .catch(() => {
                         alert('Failed To Order Task!')
@@ -78,7 +73,7 @@ export default {
                 {
                     this.ProjectList = res.data.projects as Project[]
                 }).catch((err)=>{
-                    console.log(err)
+                    alert(err)
                 })
 
             },
@@ -87,7 +82,7 @@ export default {
                 {
                     this.TaskList = res.data.tasks as Task[]
                 }).catch((err)=>{
-                    console.log(err)
+                    alert(err)
                 })
 
             },

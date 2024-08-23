@@ -6,6 +6,9 @@ import pluginVue from 'eslint-plugin-vue';
 export default [
   {
     files: ['**/*.{js,mjs,cjs,ts,vue}'],
+    rules: {
+      'no-console': 'warn', // This will warn for any console.log or similar usage
+    },
   },
   {
     languageOptions: {

@@ -6,6 +6,7 @@
 - Uses npm for javascript package management
 - Includes configured prettier and eslint for javascript
 - Includes pint and larastan set up on backend
+- Has one page that allows creation of projects and tasks with drag and drop implemented.
 
 
 ## Scripts set up in package.json
@@ -27,6 +28,15 @@
 
 Create a valid .env file and then:
 
+Run the migrations to create the database and create dummy data:
+```
+php artisan migrate:fresh --seed
+
 npm run dev
 
 php artisan serve
+```
+
+Application should be able to be accessed at:
+
+http://127.0.0.1:8000/
