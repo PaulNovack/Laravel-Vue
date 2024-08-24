@@ -45,6 +45,7 @@ Create a valid .env file with mySQL credentials and then:
 composer update
 npm update
 php artisan migrate:fresh --seed
+php artisan key:generate
 npm run dev
 php artisan serve
 ```

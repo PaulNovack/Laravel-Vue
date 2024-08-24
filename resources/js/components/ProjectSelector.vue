@@ -4,7 +4,7 @@ import TaskList from "./TaskList.vue";
 import {Task }from '../types/Task.ts'
 import {Project} from '../types/Project.ts'
 import AddString from "./AddString.vue";
-const host = import.meta.env.VITE_PUSHER_HOST;
+
 export default {
     components: {
         AddString,
@@ -69,7 +69,7 @@ export default {
                     })
             },
             async getProjectList(){
-                axios.get(host + "/project").then((res) =>
+                axios.get('http://127.0.0.1:8000/project').then((res) =>
                 {
                     this.ProjectList = res.data.projects as Project[]
                 }).catch((err)=>{
@@ -78,7 +78,7 @@ export default {
 
             },
             async getTasktList(){
-                axios.get(host + `/task/${this.selectedProjectId}`).then((res) =>
+                axios.get( `http://127.0.0.1:8000//task/${this.selectedProjectId}`).then((res) =>
                 {
                     this.TaskList = res.data.tasks as Task[]
                 }).catch((err)=>{
