@@ -52,3 +52,5 @@ php artisan serve
 Application should be able to be accessed at:
 
 http://127.0.0.1:8000/
+
+![Projects Tab Image](projectsTab.png?raw=true "Title")
