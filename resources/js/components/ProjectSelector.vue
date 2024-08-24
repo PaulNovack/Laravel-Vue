@@ -32,7 +32,7 @@ export default {
                     .catch(error => {
                         alert("Error: " + error)
                     });
-                this.getProjectList(projectName);
+                this.getProjectList(projectName)
             },
             handleAddTask(taskname: string) {
                 if(this.selectedProjectId == 0){
@@ -81,6 +81,7 @@ export default {
                     this.ProjectList = res.data.projects as Project[]
                     if(projectName != -1){
                         this.selectedProjectId = this.ProjectList.find(project => project.name === projectName).id
+                        this.getTasktList()
                     }
 
                     if(typeof this.ProjectList === "undefined"){
