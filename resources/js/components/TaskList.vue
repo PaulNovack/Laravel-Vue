@@ -3,6 +3,7 @@ import { defineComponent, ref, watch } from 'vue';
 import { Task } from '../types/Task';
 import AddString from './AddString.vue';
 import draggable from 'vuedraggable';
+import axios from "axios";
 
 export default defineComponent({
     components: { AddString, draggable },
@@ -36,12 +37,35 @@ export default defineComponent({
         const handleDragEnd = () => {
             emit('orderTaskList', localTaskList.value);
         };
+        const debounce = (func, wait) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func(...args), wait);
+            };
+        };
+        const updateTaskText = (key, value,taskList) => {
+            const project_id = taskList.find(task => task.id === key)?.project_id;
+            alert(project_id)
+            const taskData = {
+                name: value,
+                project_id: project_id
+            };
+            axios.patch(`task/`+ key, taskData)
+                .catch(error => {
+                    alert('Failed To Update Task with error ' + error)
+                });
+        };
+        const debouncedUpdateTaskText = debounce(updateTaskText, 500); // 1/2 second
 
         return {
             localTaskList,
             deleteTaskById,
             handleAddTask,
-            handleDragEnd
+            handleDragEnd,
+            debounce,
+            updateTaskText,
+            debouncedUpdateTaskText
         };
     }
 });
@@ -57,7 +81,7 @@ export default defineComponent({
             @end="handleDragEnd">
             <template #item="{ element }">
                 <div class="flex justify-between items-center rounded-lg border-2 md:w-1 sm:w-1 lg:w-1/2 border-gray-500 p-0.5">
-                    {{ element.name }}
+                    <input @input="debouncedUpdateTaskText(element.id,$event.target.value,localTaskList)" class="w-full" :key="element.id" :value="element.name"/>
                     <img @click="deleteTaskById(element.id)" :src="`/svg/garbage.svg`" alt="Garbage Icon" class="max-h-4">
                 </div>
             </template>

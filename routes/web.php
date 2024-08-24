@@ -17,6 +17,7 @@ Route::prefix('project')->group(function () {
 Route::prefix('task')->group(function () {
     Route::get('{project}', [TaskController::class, 'index']);
     Route::post('/', [TaskController::class, 'store']);
+    Route::patch('/{task}', [TaskController::class, 'store']);
     Route::post('/order', [TaskController::class, 'order']);
     Route::delete('{task}', [TaskController::class, 'delete']);
 });
