@@ -34,6 +34,10 @@ export default {
                 this.getProjectList();
             },
             handleAddTask(taskname: string) {
+                if(this.selectedProjectId == 0){
+                    alert("You must select a project to add task to first.")
+                    return
+                }
                 const taskData = {
                     name: taskname,
                     project_id: this.selectedProjectId
@@ -48,6 +52,7 @@ export default {
                 axios.delete( `project/${this.selectedProjectId}`)
                     .then(() => {
                         this.ProjectList = this.ProjectList.filter(task => task.id !== this.selectedProjectId);
+                        this.TaskList = []
                     })
                     .catch(() => {
                         alert('Failed To delete Task!')
