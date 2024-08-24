@@ -46,7 +46,6 @@ export default defineComponent({
         };
         const updateTaskText = (key, value,taskList) => {
             const project_id = taskList.find(task => task.id === key)?.project_id;
-            alert(project_id)
             const taskData = {
                 name: value,
                 project_id: project_id
