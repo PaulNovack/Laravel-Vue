@@ -27,7 +27,7 @@ export default {
                 const projectData = {
                     name: projectName
                 };
-                axios.post('http://127.0.0.1:8000/project', projectData)
+                axios.post('project', projectData)
                     .catch(error => {
                         alert("Error: " + error)
                     });
@@ -38,14 +38,14 @@ export default {
                     name: taskname,
                     project_id: this.selectedProjectId
                 };
-                axios.post(`http://127.0.0.1:8000/task`, taskData)
+                axios.post(`task`, taskData)
                     .catch(error => {
                         alert('Failed To Add Task with error ' + error)
                     });
                 this.getTasktList()
             },
             deleteProjectById(){
-                axios.delete('http://127.0.0.1:8000' + `/project/${this.selectedProjectId}`)
+                axios.delete( `project/${this.selectedProjectId}`)
                     .then(() => {
                         this.ProjectList = this.ProjectList.filter(task => task.id !== this.selectedProjectId);
                     })
@@ -54,7 +54,7 @@ export default {
                     })
             },
             deleteTaskById(taskid){
-                axios.delete('http://127.0.0.1:8000' + `/task/${taskid}`)
+                axios.delete( `task/${taskid}`)
                     .then(() => {
                         this.TaskList = this.TaskList.filter(task => task.id !== taskid);
                     })
@@ -63,13 +63,13 @@ export default {
                     })
             },
             orderTaskList(tasks){
-                axios.post('http://127.0.0.1:8000' + `/task/order`,{ tasks: tasks })
+                axios.post( `task/order`,{ tasks: tasks })
                     .catch(() => {
                         alert('Failed To Order Task!')
                     })
             },
             async getProjectList(){
-                axios.get('http://127.0.0.1:8000/project').then((res) =>
+                axios.get('project').then((res) =>
                 {
                     this.ProjectList = res.data.projects as Project[]
                 }).catch((err)=>{
@@ -78,7 +78,7 @@ export default {
 
             },
             async getTasktList(){
-                axios.get( `http://127.0.0.1:8000/task/${this.selectedProjectId}`).then((res) =>
+                axios.get( `task/${this.selectedProjectId}`).then((res) =>
                 {
                     this.TaskList = res.data.tasks as Task[]
                 }).catch((err)=>{
