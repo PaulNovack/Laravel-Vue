@@ -73,6 +73,7 @@ export default {
                     .catch(() => {
                         alert('Failed To Order Task!')
                     })
+                this.getTasktList() // much fetch new priority and ids
             },
             async getProjectList(projectName = -1){
                 axios.get('project').then((res) =>
