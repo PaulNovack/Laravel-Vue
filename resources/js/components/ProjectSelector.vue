@@ -72,6 +72,9 @@ export default {
                 axios.get('project').then((res) =>
                 {
                     this.ProjectList = res.data.projects as Project[]
+                    if(typeof this.ProjectList === "undefined"){
+                        alert("There is something wrong with configuration.\nApplication can not fetch data from JSON endpoint")
+                    }
                 }).catch((err)=>{
                     alert(err)
                 })
