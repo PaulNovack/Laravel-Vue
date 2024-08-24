@@ -5,6 +5,7 @@ import {Task }from '../types/Task.ts'
 import {Project} from '../types/Project.ts'
 import AddString from "./AddString.vue";
 
+
 export default {
     components: {
         AddString,
@@ -31,7 +32,7 @@ export default {
                     .catch(error => {
                         alert("Error: " + error)
                     });
-                this.getProjectList();
+                this.getProjectList(projectName);
             },
             handleAddTask(taskname: string) {
                 if(this.selectedProjectId == 0){
@@ -73,10 +74,14 @@ export default {
                         alert('Failed To Order Task!')
                     })
             },
-            async getProjectList(){
+            async getProjectList(projectName = -1){
                 axios.get('project').then((res) =>
                 {
                     this.ProjectList = res.data.projects as Project[]
+                    if(projectName != -1){
+                        this.selectedProjectId = this.ProjectList.find(project => project.name === projectName).id
+                    }
+
                     if(typeof this.ProjectList === "undefined"){
                         alert("There is something wrong with configuration.\nApplication can not fetch data from JSON endpoint")
                     }
