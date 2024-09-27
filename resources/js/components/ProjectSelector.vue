@@ -28,11 +28,14 @@ export default {
                 const projectData = {
                     name: projectName
                 };
+
                 axios.post('project', projectData)
+                    .then(() => {
+                        this.getProjectList(projectName); // This will execute after the post is completed
+                    })
                     .catch(error => {
-                        alert("Error: " + error)
+                        alert("Error: " + error);
                     });
-                this.getProjectList(projectName)
             },
             handleAddTask(taskname: string) {
                 if(this.selectedProjectId == 0){
@@ -44,10 +47,13 @@ export default {
                     project_id: this.selectedProjectId
                 };
                 axios.post(`task`, taskData)
+                    .then(() => {
+                        this.getTasktList(); // This will execute after the post is completed
+                    })
                     .catch(error => {
-                        alert('Failed To Add Task with error ' + error)
+                        alert('Failed To Add Task with error ' + error);
                     });
-                this.getTasktList()
+
             },
             deleteProjectById(){
                 axios.delete( `project/${this.selectedProjectId}`)
@@ -70,20 +76,24 @@ export default {
             },
             orderTaskList(tasks){
                 axios.post( `task/order`,{ tasks: tasks })
+                    .then(() => {
+                        this.getTasktList() // much fetch new priority and ids
+                    })
                     .catch(() => {
                         alert('Failed To Order Task!')
                     })
-                this.getTasktList() // much fetch new priority and ids
             },
             async getProjectList(projectName = -1){
                 axios.get('project').then((res) =>
                 {
+                    if(res.status == 204){
+                        return // no content no projects created.
+                    }
                     this.ProjectList = res.data.projects as Project[]
                     if(projectName != -1){
                         this.selectedProjectId = this.ProjectList.find(project => project.name === projectName).id
                         this.getTasktList()
                     }
-
                     if(typeof this.ProjectList === "undefined"){
                         alert("There is something wrong with configuration.\nApplication can not fetch data from JSON endpoint")
                     }
@@ -92,7 +102,7 @@ export default {
                 })
 
             },
-            async getTasktList(){
+            getTasktList(){
                 axios.get( `task/${this.selectedProjectId}`).then((res) =>
                 {
                     this.TaskList = res.data.tasks as Task[]
@@ -122,7 +132,7 @@ export default {
                  :value="project.id"
                  :title="project.name">{{ project.name }}</option>
     </select>
-            <img @click="deleteProjectById()" :src="`/svg/garbage.svg`" alt="Garbage Icon" class="max-h-5 pl-2 pt-1">
+            <img @click="deleteProjectById()" :src="`/drag-and-drop-list/svg/garbage.svg`" alt="Garbage Icon" class="max-h-5 pl-2 pt-1">
         </div>
         </div>
     <div class="flex w-full">

@@ -6,9 +6,9 @@ import Project from './pages/ProjectPage.vue';
 import About from './pages/AboutPage.vue';
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/about', component: About },
-  { path: '/project-tasks', component: Project },
+  { path: '/drag-and-drop-list/', component: Home },
+  { path: '/drag-and-drop-list/about', component: About },
+  { path: '/drag-and-drop-list/project-tasks', component: Project },
 ];
 const router = createRouter({
   history: createWebHistory(),

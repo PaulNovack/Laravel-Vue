@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Adds the user_id column and foreign key constraint
             $table->timestamps();
         });
     }

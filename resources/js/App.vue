@@ -1,5 +1,4 @@
 <script lang="ts">
-
 export default {
 
 }
@@ -12,13 +11,13 @@ export default {
             <div class="flex justify-start items-center py-4">
                 <!-- Menu Links -->
                 <div class="flex space-x-6">
-                    <a href="/" class="text-gray-600 hover:text-blue-500 transition">Home</a>
-                    <a href="/project-tasks" class="text-gray-600 hover:text-blue-500 transition">Projects</a>
-                    <a href="/about" class="text-gray-600 hover:text-blue-500 transition">About</a>
+                    <a href="/" class="text-xl text-gray-600 hover:text-blue-500 transition">PaulNovack.net Home</a>
+                    <a href="/drag-and-drop-list/" class="text-xl text-gray-600 hover:text-blue-500 transition">Home</a>
+                    <a href="/drag-and-drop-list/project-tasks" class="text-xl text-gray-600 hover:text-blue-500 transition">Projects</a>
+                    <a href="/drag-and-drop-list/about" class="text-xl text-gray-600 hover:text-blue-500 transition">About</a>
                 </div>
             </div>
         </div>
     </nav>
     <RouterView />
 </template>
-

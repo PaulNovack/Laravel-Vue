@@ -81,7 +81,7 @@ export default defineComponent({
             <template #item="{ element }">
                 <div class="flex justify-between items-center rounded-lg border-2 md:w-1 sm:w-1 lg:w-1/2 border-gray-500 p-0.5">
                     <input @input="debouncedUpdateTaskText(element.id,$event.target.value,localTaskList)" class="w-full" :key="element.id" :value="element.name"/>
-                    <img @click="deleteTaskById(element.id)" :src="`/svg/garbage.svg`" alt="Garbage Icon" class="max-h-4">
+                    <img @click="deleteTaskById(element.id)" :src="`/drag-and-drop-list/svg/garbage.svg`" alt="Garbage Icon" class="max-h-4">
                 </div>
             </template>
         </draggable>
