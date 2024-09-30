@@ -37,6 +37,7 @@ export default defineComponent({
         const handleDragEnd = () => {
             emit('orderTaskList', localTaskList.value);
         };
+
         const debounce = (func, wait) => {
             let timeout;
             return (...args) => {
@@ -44,17 +45,19 @@ export default defineComponent({
                 timeout = setTimeout(() => func(...args), wait);
             };
         };
-        const updateTaskText = (key, value,taskList) => {
+
+        const updateTaskText = (key, value, taskList) => {
             const project_id = taskList.find(task => task.id === key)?.project_id;
             const taskData = {
                 name: value,
                 project_id: project_id
             };
-            axios.patch(`task/`+ key, taskData)
+            axios.patch(`task/` + key, taskData)
                 .catch(error => {
-                    alert('Failed To Update Task with error ' + error)
+                    alert('Failed To Update Task with error ' + error);
                 });
         };
+
         const debouncedUpdateTaskText = debounce(updateTaskText, 500); // 1/2 second
 
         return {
@@ -71,23 +74,33 @@ export default defineComponent({
 </script>
 
 <template>
-    <div id="task-list" class="w-full">
+    <div id="task-list" class="w-full space-y-4">
         <draggable
             v-model="localTaskList"
             group="tasks"
             item-key="id"
-            class="space-y-1"
+            class="space-y-2"
             @end="handleDragEnd">
             <template #item="{ element }">
-                <div class="flex justify-between items-center rounded-lg border-2 md:w-1 sm:w-1 lg:w-1/2 border-gray-500 p-0.5">
-                    <input @input="debouncedUpdateTaskText(element.id,$event.target.value,localTaskList)" class="w-full" :key="element.id" :value="element.name"/>
-                    <img @click="deleteTaskById(element.id)" :src="`/drag-and-drop-list/svg/garbage.svg`" alt="Garbage Icon" class="max-h-4">
+                <div class="flex justify-between items-center rounded-lg border-2 border-gray-500 p-3">
+                    <input @input="debouncedUpdateTaskText(element.id, $event.target.value, localTaskList)"
+                           class="w-full p-2 text-base rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           :key="element.id"
+                           :value="element.name" />
+                    <img @click="deleteTaskById(element.id)"
+                         :src="`/drag-and-drop-list/svg/garbage.svg`"
+                         alt="Delete Task"
+                         class="h-6 w-6 ml-2 cursor-pointer" />
                 </div>
             </template>
         </draggable>
-        <AddString @add="handleAddTask" :for="`Task`" class="pb-1"/>
-        Drag Tasks to Re-Order.
+
+        <AddString @add="handleAddTask" :for="`Task`" class="pt-4" />
+
+        <div class="text-center text-sm">Drag Tasks to Re-Order</div>
     </div>
 </template>
 
-
+<style scoped>
+/* Add any additional styles here if needed */
+</style>
